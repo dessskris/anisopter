@@ -222,7 +222,10 @@ class Animation(object):
         # TO-DO: change this not to be hard coded.
         d = out_directory.split(".avi")[0]
         command = "avconv -i %s.avi -c:v libx264 -c:a copy %s.mp4" % (d, d)
-        call(command.split()) #problemhere
+        # There will be subprocess problems if avconv is not installed
+        # With those errors, avi movie can still be created
+        # After installing avconv, both avi and mp4 movies are produced
+        call(command.split())
 
         cv2.destroyAllWindows()
 
