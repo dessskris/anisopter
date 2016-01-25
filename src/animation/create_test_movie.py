@@ -2,7 +2,7 @@
 Creating test movie, where 25% of the movie represents repeating pattern.
 """
 
-from src.animation.animation.target_animation import Animation
+from animation.target_animation import Animation
 import cv2
 
 
@@ -17,10 +17,10 @@ Create animation, which is joint of several animations.
 
 for i in range(NUMBER_OF_REPS):
     pat = Animation()
-    pat.add_target(2, start=[200,300], end=[500,300], size=6, v=5)
+    pat.add_target(2, start=[200,300], size=6, v=5)
 
     ran = Animation()
-    ran.add_target(1, start=[250,300], end=[500,300], size=6, v=10)
+    ran.add_target(1, start=[250,300], size=6, v=10)
     
     pat.run(pat_dir, total_frames=10)
     ran.run(ran_dir, total_frames=30)
