@@ -179,6 +179,9 @@ class AnimationWindow(object):
 
         self.time += 1
 
+    def return_time(self):
+        return self.time
+
 
 class Animation(object):
     """ 
@@ -297,10 +300,19 @@ class Animation(object):
                                  self.bg, self.dragonfly)
         # Next line makes window update every 1.0/fps seconds after
         # running method update_frames on window.
+        cv2.cv.NamedWindow("Dragonfly Simulation")
+        cv2.cv.StartWindowThread()
         for i in range(total_frames):
             time = 1.0 * i / total_frames
             window.update_frame(time)
             window.draw()
+            img_name = "temp/scr" + str(window.return_time()) + ".png"
+            print img_name
+            img = cv2.cv.LoadImage(img_name)
+            cv2.cv.ShowImage("Dragonfly Simulation", img)
+            cv2.cv.WaitKey(2)
+        cv2.cv.DestroyWindow("Dragonfly Simulation")
+        cv2.cv.WaitKey(1)
         self.create_movie(out_directory, fps, total_frames)
         [self.target_list, self.bg, self.dragonfly] = history
 
