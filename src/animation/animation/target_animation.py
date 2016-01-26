@@ -306,14 +306,24 @@ class Animation(object):
             time = 1.0 * i / total_frames
             window.update_frame(time)
             window.draw()
-            img_name = "temp/scr" + str(window.return_time()) + ".png"
+            img_name = "temp/scr" + str(window.return_time()-1) + ".png"
             print img_name
             img = cv2.imread(img_name)
             cv2.imshow("Dragonfly Simulation", img)
-            cv2.waitKey(1)
+            
+            # The following code lets the user press q to close the
+            # simulation window
+            key_press = cv2.waitKey(5)
+            print key_press
+            if key_press == 113:
+                cv2.destroyWindow("Dragonfly Simulation")
+                cv2.waitKey(1)
+                break
+            
         cv2.destroyWindow("Dragonfly Simulation")
         cv2.waitKey(1)
-        self.create_movie(out_directory, fps, total_frames)
+        self.create_movie(out_directory, fps, i)
+        # last argument is i in case if the simulation is closed early
         [self.target_list, self.bg, self.dragonfly] = history
 
     def get_targets_positions(self, time):
